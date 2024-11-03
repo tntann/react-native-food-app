@@ -24,11 +24,6 @@ const InputTodo = (props: IProps) => {
     // validate
     if (!name) {
       Alert.alert("Thông tin không hợp lệ", "Tiêu đề không được để trống", [
-        // {
-        //   text: "Cancel",
-        //   onPress: () => console.log("Cancel Pressed"),
-        //   style: "cancel",
-        // },
         { text: "OK", onPress: () => console.log("OK Pressed") },
       ]);
 
