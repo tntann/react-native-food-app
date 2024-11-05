@@ -1,13 +1,17 @@
 import { Button, Text, View } from "react-native";
 import { NavigationContainer, useRoute } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import "react-native-gesture-handler";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
+  const Tab = createBottomTabNavigator();
 
   function HomeScreen() {
     const navigation: any = useNavigation();
@@ -82,14 +86,38 @@ export default function App() {
           })}
         />
       </Stack.Navigator> */}
-      <Drawer.Navigator initialRouteName="Home">
+      {/* <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen
           name="Home"
           component={HomeScreen}
           options={{ headerTitle: "Trang chủ", drawerLabel: "Trang chủ" }}
         />
         <Drawer.Screen name="DetailsScreen" component={DetailsScreen} />
-      </Drawer.Navigator>
+      </Drawer.Navigator> */}
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
+          }}
+        />
+        <Tab.Screen
+          name="DetailsScreen"
+          component={DetailsScreen}
+          options={{
+            tabBarLabel: "Detail user",
+            tabBarIcon: () => (
+              <MaterialCommunityIcons
+                name="account-details"
+                size={24}
+                color="black"
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
