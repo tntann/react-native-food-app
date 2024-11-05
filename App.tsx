@@ -5,119 +5,54 @@ import "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Home from "./components/learn/home";
+import HomeDetail from "./components/learn/home.detail";
+import Like from "./components/learn/like";
+import LikeDetail from "./components/learn/like.detail";
+import About from "./components/learn/about";
+import ChangePassword from "./components/learn/change.password";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
   const Tab = createBottomTabNavigator();
 
-  function HomeScreen() {
-    const navigation: any = useNavigation();
+  const TabApp = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Home Screen</Text>
-        <View style={{ paddingVertical: 10 }}>
-          <Button
-            title="Go to Detail"
-            onPress={() => navigation.navigate("Details")}
-          />
-        </View>
-        <View style={{ paddingVertical: 10 }}>
-          <Button
-            title="Go to user id = 1"
-            onPress={() =>
-              navigation.navigate("Details", { userId: 1, name: "tantn" })
-            }
-          />
-        </View>
-        <View style={{ paddingVertical: 10 }}>
-          <Button
-            title="Go to user id = 2"
-            onPress={() =>
-              navigation.navigate("Details", { userId: 2, name: "Nhat Tan" })
-            }
-          />
-        </View>
-      </View>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Like" component={Like} />
+      </Tab.Navigator>
     );
-  }
+  };
 
-  function DetailsScreen() {
-    const navigation: any = useNavigation();
-    const route: any = useRoute();
+  const StackApp = () => {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Details Screen</Text>
-        <Text>user id = {route?.params?.userId}</Text>
-        <Button
-          title="Go Back Home"
-          // onPress={() => navigation.navigate("Home")}
-          onPress={() => navigation.goBack()}
-        />
-      </View>
-    );
-  }
-
-  return (
-    <NavigationContainer>
-      {/* <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#f4511e",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      >
+      <Stack.Navigator>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Trang chủ" }}
+          name="TabApp"
+          component={TabApp}
+          options={{ title: "Trang chủ", headerShown: false }}
         />
         <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
+          name="HomeDetail"
+          component={HomeDetail}
           options={({ route }: { route: any }) => ({
             headerTitle: `Xem chi tiết ${route?.params?.userId ?? ""}`,
           })}
         />
-      </Stack.Navigator> */}
-      {/* <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerTitle: "Trang chủ", drawerLabel: "Trang chủ" }}
-        />
-        <Drawer.Screen name="DetailsScreen" component={DetailsScreen} />
-      </Drawer.Navigator> */}
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: "Home",
-            tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
-          }}
-        />
-        <Tab.Screen
-          name="DetailsScreen"
-          component={DetailsScreen}
-          options={{
-            tabBarLabel: "Detail user",
-            tabBarIcon: () => (
-              <MaterialCommunityIcons
-                name="account-details"
-                size={24}
-                color="black"
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+        <Stack.Screen name="LikeDetail" component={LikeDetail} />
+      </Stack.Navigator>
+    );
+  };
+
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="StackApp" component={StackApp} />
+        <Drawer.Screen name="About" component={About} />
+        <Drawer.Screen name="ChangePassword" component={ChangePassword} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
