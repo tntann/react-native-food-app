@@ -7,8 +7,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./src/components/learn/home";
 import HomeDetail from "./src/components/learn/home.detail";
-import Like from "./src/components/learn/like";
-import LikeDetail from "./src/components/learn/like.detail";
+import Like from "./src/app/like";
+import LikeDetail from "./src/app/like/like.detail";
 import About from "./src/components/learn/about";
 import ChangePassword from "./src/components/learn/change.password";
 
