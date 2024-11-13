@@ -1,13 +1,7 @@
-import { Slot, Stack } from "expo-router";
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
 
 const RootLayout = () => {
   return (
-    // <View style={{ padding: 50 }}>
-    //   <Text>Header</Text>
-    //   <Slot />
-    //   <Text>Footer</Text>
-    // </View>
     <Stack
       screenOptions={{
         headerStyle: {
@@ -20,6 +14,7 @@ const RootLayout = () => {
       }}
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerTitle: "Trang chủ" }} />
       <Stack.Screen
         name="product/index"
