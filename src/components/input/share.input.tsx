@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const styles = StyleSheet.create({
   inputGroup: {
@@ -18,32 +19,61 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    paddingHorizontal: 7,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 8,
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 10,
+    top: 18,
   },
 });
 
 interface IProps {
   title?: string;
   keyboardType?: KeyboardTypeOptions;
+  secureTextEntry?: boolean;
+  value: any;
+  setValue: (v: any) => void;
 }
 
 const ShareInput = (props: IProps) => {
   const [isFocus, setIsFocus] = useState<boolean>(false);
-  const { title, keyboardType } = props;
+  const [isShowPass, setIsShowPass] = useState<boolean>(false);
+  const {
+    title,
+    keyboardType,
+    secureTextEntry = false,
+    value,
+    setValue,
+  } = props;
   return (
     <View style={styles.inputGroup}>
       {title && <Text style={styles.text}>{title}</Text>}
-      <TextInput
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        keyboardType={keyboardType}
-        style={[
-          styles.textInput,
-          { borderColor: isFocus ? APP_COLOR.ORANGE : APP_COLOR.GRAY },
-        ]}
-      />
+      <View>
+        <TextInput
+          value={value}
+          onChangeText={(text) => setValue(text)}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          keyboardType={keyboardType}
+          style={[
+            styles.textInput,
+            { borderColor: isFocus ? APP_COLOR.ORANGE : APP_COLOR.GRAY },
+          ]}
+          secureTextEntry={secureTextEntry && !isShowPass}
+        />
+        {secureTextEntry && (
+          <Ionicons
+            onPress={() => setIsShowPass(!isShowPass)}
+            style={styles.eyeIcon}
+            name={isShowPass ? "eye-outline" : "eye-off-outline"}
+            size={18}
+            color="black"
+          />
+        )}
+      </View>
     </View>
   );
 };
