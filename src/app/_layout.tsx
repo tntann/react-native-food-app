@@ -25,10 +25,7 @@ const RootLayout = () => {
             name="product/index"
             options={{ headerTitle: "Sản Phẩm" }}
           />
-          <Stack.Screen
-            name="(auth)/login"
-            options={{ headerTitle: "Đăng nhập" }}
-          />
+          <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
         </Stack>
       </SafeAreaView>
     </RootSiblingParent>
