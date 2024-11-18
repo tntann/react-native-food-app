@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Pressable,
   StyleProp,
   StyleSheet,
@@ -27,15 +28,25 @@ interface IProps {
   pressStyle?: StyleProp<TextStyle>;
   btnStyle?: StyleProp<TextStyle>;
   icon?: ReactNode;
+  loading?: boolean;
 }
 
 const ShareButton = (props: IProps) => {
-  const { title, onPress, textStyle, pressStyle, btnStyle, icon } = props;
+  const {
+    title,
+    onPress,
+    textStyle,
+    pressStyle,
+    btnStyle,
+    icon,
+    loading = false,
+  } = props;
   return (
     <Pressable
+      disabled={loading}
       style={({ pressed }) => [
         {
-          opacity: pressed === true ? 0.5 : 1,
+          opacity: pressed === true || loading ? 0.5 : 1,
           alignSelf: "flex-start",
         },
         pressStyle,
@@ -43,6 +54,7 @@ const ShareButton = (props: IProps) => {
       onPress={onPress}
     >
       <View style={[styles.btnContainer, btnStyle]}>
+        {loading && <ActivityIndicator color={"black"} />}
         {icon}
         <Text style={textStyle}>{title}</Text>
       </View>
