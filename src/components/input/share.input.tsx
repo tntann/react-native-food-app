@@ -35,7 +35,10 @@ interface IProps {
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
   value: any;
-  setValue: (v: any) => void;
+  setValue?: (v: any) => void;
+  onChangeText?: any;
+  onBlur?: any;
+  error?: any;
 }
 
 const ShareInput = (props: IProps) => {
@@ -47,6 +50,9 @@ const ShareInput = (props: IProps) => {
     secureTextEntry = false,
     value,
     setValue,
+    onChangeText,
+    onBlur,
+    error,
   } = props;
   return (
     <View style={styles.inputGroup}>
@@ -54,9 +60,12 @@ const ShareInput = (props: IProps) => {
       <View>
         <TextInput
           value={value}
-          onChangeText={(text) => setValue(text)}
+          onChangeText={onChangeText}
           onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
+          onBlur={(e) => {
+            onBlur(e);
+            setIsFocus(false);
+          }}
           keyboardType={keyboardType}
           style={[
             styles.textInput,
@@ -64,6 +73,7 @@ const ShareInput = (props: IProps) => {
           ]}
           secureTextEntry={secureTextEntry && !isShowPass}
         />
+        {error && <Text style={{ color: "red", marginTop: 5 }}>{error}</Text>}
         {secureTextEntry && (
           <Ionicons
             onPress={() => setIsShowPass(!isShowPass)}
