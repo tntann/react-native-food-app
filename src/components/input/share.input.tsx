@@ -63,7 +63,7 @@ const ShareInput = (props: IProps) => {
           onChangeText={onChangeText}
           onFocus={() => setIsFocus(true)}
           onBlur={(e) => {
-            onBlur(e);
+            if (onBlur) onBlur(e);
             setIsFocus(false);
           }}
           keyboardType={keyboardType}
